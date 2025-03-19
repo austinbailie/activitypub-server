@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  activitypub:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./actors:/app/actors
+      - ./.well-known:/app/.well-known
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped 
