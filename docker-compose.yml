@@ -6,8 +6,32 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      - activitypub_data:/app/data
       - ./actors:/app/actors
       - ./.well-known:/app/.well-known
     environment:
       - NODE_ENV=production
-    restart: unless-stopped 
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/.well-known/webfinger"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 200M
+
+volumes:
+  activitypub_data:
+    driver: local 

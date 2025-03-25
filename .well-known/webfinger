@@ -1,0 +1,18 @@
+{
+    "subject": "acct:earlyadopter@localhost:3000",
+    "aliases": [
+        "http://localhost:3000/actors/earlyadopter"
+    ],
+    "links": [
+        {
+            "rel": "self",
+            "type": "application/activity+json",
+            "href": "http://localhost:3000/actors/earlyadopter.json"
+        },
+        {
+            "rel": "http://webfinger.net/rel/profile-page",
+            "type": "text/html",
+            "href": "http://localhost:3000/actors/earlyadopter"
+        }
+    ]
+} 
