@@ -70,7 +70,7 @@ app.post('/outbox', (req, res) => {
         'summary': 'Outbox for earlyadopter',
         'type': 'OrderedCollection', 
         'totalItems': 0,
-        'orderedItems': [],
+        'orderedItems': ['https://activitypub-server-1040968594711.us-central1.run.app/create-hello-world'],
     });
 });
 
