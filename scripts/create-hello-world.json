@@ -1,15 +1,15 @@
 {
 	"@context": "https://www.w3.org/ns/activitystreams",
 
-	"id": "https://austinbailie.me/create-hello-world",
+	"id": "https://activitypub-server-1040968594711.us-central1.run.app/create-hello-world",
 	"type": "Create",
-	"actor": "https://austinbailie.me/actors/earlyadopter.json",
+	"actor": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter",
 
 	"object": {
-		"id": "https://austinbailie.me/create-hello-world",
+		"id": "https://activitypub-server-1040968594711.us-central1.run.app/create-hello-world",
 		"type": "Note",
 		"published": "2025-03-03T17:17:11Z",
-		"attributedTo": "https://austinbailie.me/actors/earlyadopter.json",
+		"attributedTo": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter",
     "inReplyTo": "https://mastodon.social/@earlyadopter/114101570562968262",
 		"content": "<p>Hello world</p>",
 		"to": "https://www.w3.org/ns/activitystreams#Public"

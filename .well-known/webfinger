@@ -1,18 +1,18 @@
 {
     "subject": "acct:earlyadopter@localhost:3000",
     "aliases": [
-        "http://localhost:3000/actors/earlyadopter"
+        "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter"
     ],
     "links": [
         {
             "rel": "self",
             "type": "application/activity+json",
-            "href": "http://localhost:3000/actors/earlyadopter.json"
+            "href": "https://activitypub-server-1040968594711.us-central1.run.app/earlyadopter"
         },
         {
             "rel": "http://webfinger.net/rel/profile-page",
             "type": "text/html",
-            "href": "http://localhost:3000/actors/earlyadopter"
+            "href": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter"
         }
     ]
 } 
