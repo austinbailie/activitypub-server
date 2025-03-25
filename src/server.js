@@ -45,13 +45,17 @@ app.post('/inbox', (req, res) => {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
 
+    const body = req.body
+
     res.setHeader('Content-Type', 'application/activity+json');
     res.status(200).json({
-        '@context': 'https://www.w3.org/ns/activitystreams',
-        'summary': 'Inbox for earlyadopter',
-        'type': 'OrderedCollection', 
-        'totalItems': 0,
-        'orderedItems': [],
+        "@context": "https://www.w3.org/ns/activitystreams",
+        "id": `https://activitypub-server-1040968594711.us-central1.run.app/${Date.now()}`,
+        "type": "Accept",
+        "actor": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter",
+        "object": {
+            ...body
+        }
     });
 });
 
