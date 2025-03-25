@@ -21,8 +21,8 @@ function createSignedRequest(document, actorUrl) {
     sha256.update(document);
     const digest = `SHA-256=${sha256.digest('base64')}`;
 
-    // Get current date in HTTP format
-    const date = new Date().toUTCString();
+    // Get current date in ISO format
+    const date = new Date().toISOString();
 
     // Read private key
     const privateKey = fs2.readFileSync(path.join(__dirname, '../scripts/private.pem'), 'utf8');
