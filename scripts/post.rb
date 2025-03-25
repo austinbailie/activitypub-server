@@ -8,7 +8,7 @@ logger.level = Logger::DEBUG
 
 document = File.read('./create-hello-world.json')
 inbox_url = 'https://mastodon.social/inbox'
-actor_url = 'http://localhost:3000/actors/earlyadopter.json'
+actor_url = 'https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter'
 
 logger.debug("HTTP POST Request to #{inbox_url}")
 logger.debug("Document being sent: #{document}")
