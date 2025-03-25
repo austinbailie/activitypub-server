@@ -3,6 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const fs = require('fs').promises;
 const path = require('path');
+const crypto = require('crypto');
+const fs2 = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +13,38 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
+
+function createSignedRequest(document, actorUrl) {
+    // Create SHA-256 digest of the document
+    const sha256 = crypto.createHash('sha256');
+    sha256.update(document);
+    const digest = `SHA-256=${sha256.digest('base64')}`;
+
+    // Get current date in HTTP format
+    const date = new Date().toUTCString();
+
+    // Read private key
+    const privateKey = fs2.readFileSync(path.join(__dirname, '../scripts/private.pem'), 'utf8');
+    
+    // Create the string to be signed
+    const signedString = `(request-target): post /inbox\nhost: mastodon.social\ndate: ${date}\ndigest: ${digest}`;
+
+    // Create the signature
+    const signer = crypto.createSign('SHA256');
+    signer.update(signedString);
+    signer.end();
+    const signature = signer.sign(privateKey, 'base64');
+
+    // Create the header
+    const header = `keyId="${actorUrl}",headers="(request-target) host date digest",signature="${signature}"`;
+
+    return {
+        signature: header,
+        digest: digest,
+        date: date
+    };
+}
 
 // Serve actor file with correct content type
 app.get('/actors/earlyadopter', async (req, res) => {
@@ -47,8 +81,7 @@ app.post('/inbox', (req, res) => {
 
     const body = req.body
 
-    res.setHeader('Content-Type', 'application/activity+json');
-    res.status(200).json({
+    const respBody = {
         "@context": "https://www.w3.org/ns/activitystreams",
         "id": `https://activitypub-server-1040968594711.us-central1.run.app/${Date.now()}`,
         "type": "Accept",
@@ -56,7 +89,17 @@ app.post('/inbox', (req, res) => {
         "object": {
             ...body
         }
-    });
+    }
+
+    const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter');
+    res.setHeader('Content-Type', 'application/activity+json');
+    res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
+    res.setHeader('Accept', 'application/activity+json');
+    res.setHeader('Signature', signedRequest.signature);
+    res.setHeader('Date', signedRequest.date);
+    res.setHeader('Digest', signedRequest.digest);
+
+    res.status(200).json(respBody);
 });
 
 app.post('/outbox', (req, res) => {
