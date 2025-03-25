@@ -71,6 +71,10 @@ app.get('/.well-known/webfinger', async (req, res) => {
 });
 // Inbox endpoint
 app.post('/inbox', (req, res) => {
+
+    console.log(req.body);
+    console.log(req.headers);
+
     const signatureHeader = req.headers['signature'];
     const dateHeader = req.headers['date'];
     const digestHeader = req.headers['digest'];
