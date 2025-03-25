@@ -82,3 +82,16 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`ActivityPub server running on port ${PORT}`);
 }); 
+
+
+// Serve webfinger endpoint
+app.get('/create-hello-world', async (req, res) => {
+    try {
+        const post = await fs.readFile(path.join(__dirname, '../scripts/create-hello-world.json'), 'utf8');
+        res.setHeader('Content-Type', 'application/activity+json');
+        res.send(post);
+    } catch (error) {
+        console.error('Error serving webfinger file:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
