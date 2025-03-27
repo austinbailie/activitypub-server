@@ -146,3 +146,38 @@ app.get('/create-hello-world', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
+
+app.get('/followers', (req, res) => {
+
+    res.setHeader('Content-Type', 'application/activity+json');
+    res.status(200).json(
+        {
+            "@context": "https://www.w3.org/ns/activitystreams",
+            "id": "https://activitypub-server-1040968594711.us-central1.run.app/followers",
+            "type": "OrderedCollectionPage",
+            "totalItems": 1,
+            "orderedItems": [
+                "https://mastodon.social/@earlyadopter"
+            ]
+          }
+    );
+});
+
+
+app.get('/following', (req, res) => {
+   
+    res.setHeader('Content-Type', 'application/activity+json');
+    res.status(200).json(
+        {
+            "@context": "https://www.w3.org/ns/activitystreams",
+            "id": "https://activitypub-server-1040968594711.us-central1.run.app/followers",
+            "type": "OrderedCollectionPage",
+            "totalItems": 1,
+            "orderedItems": [
+                "https://mastodon.social/@earlyadopter"
+            ]
+          }
+    );
+});
