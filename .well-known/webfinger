@@ -1,13 +1,13 @@
 {
     "subject": "acct:earlyadopter@activitypub-server-1040968594711.us-central1.run.app",
     "aliases": [
-        "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter"
+        "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter"
     ],
     "links": [
         {
             "rel": "self",
             "type": "application/activity+json",
-            "href": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter"
+            "href": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter"
         }
     ]
 } 

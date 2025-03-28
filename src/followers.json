@@ -1,6 +1,6 @@
 {
   "@context": "https://www.w3.org/ns/activitystreams",
-  "id": "https://activitypub-server-1040968594711.us-central1.run.app/followers",
+  "id": "https://activitypub-server-kiclietloq-uc.a.run.app/followers",
   "type": "OrderedCollectionPage",
   "totalItems": 2,
   "orderedItems": [

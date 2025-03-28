@@ -87,15 +87,15 @@ app.post('/inbox', (req, res) => {
 
     const respBody = {
         "@context": "https://www.w3.org/ns/activitystreams",
-        "id": `https://activitypub-server-1040968594711.us-central1.run.app/${Date.now()}`,
+        "id": `https://activitypub-server-kiclietloq-uc.a.run.app/${Date.now()}`,
         "type": "Accept",
-        "actor": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter",
+        "actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
         "object": {
             ...body
         }
     }
 
-    const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter');
+    const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter');
     res.setHeader('Content-Type', 'application/activity+json');
     res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
     res.setHeader('Accept', 'application/activity+json');
@@ -121,7 +121,7 @@ app.post('/outbox', (req, res) => {
         'summary': 'Outbox for earlyadopter',
         'type': 'OrderedCollection', 
         'totalItems': 0,
-        'orderedItems': ['https://activitypub-server-1040968594711.us-central1.run.app/create-hello-world'],
+        'orderedItems': ['https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world'],
     });
 });
 
@@ -135,7 +135,7 @@ app.listen(PORT, () => {
 }); 
 
 
-// Serve webfinger endpoint
+
 app.get('/create-hello-world', async (req, res) => {
     try {
         const post = await fs.readFile(path.join(__dirname, '../scripts/create-hello-world.json'), 'utf8');
@@ -155,7 +155,7 @@ app.get('/followers', (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-server-1040968594711.us-central1.run.app/followers",
+            "id": "https://activitypub-server-kiclietloq-uc.a.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": 1,
             "orderedItems": [
@@ -172,7 +172,7 @@ app.get('/following', (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-server-1040968594711.us-central1.run.app/followers",
+            "id": "https://activitypub-server-kiclietloq-uc.a.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": 1,
             "orderedItems": [
