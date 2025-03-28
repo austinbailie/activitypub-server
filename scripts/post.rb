@@ -32,7 +32,7 @@ logger.debug("Document being sent: #{document}")
 sha256        = OpenSSL::Digest::SHA256.new
 digest        = "SHA-256=" + Base64.strict_encode64(sha256.digest(document))
 date          = Time.now.utc.httpdate
-keypair       = OpenSSL::PKey::RSA.new(File.read('private.pem'))
+keypair       = OpenSSL::PKey::RSA.new(File.read(File.join(__dir__, 'private.pem')))
 signed_string = "(request-target): post /inbox\nhost: mastodon.social\ndate: #{date}\ndigest: #{digest}"
 signature     = Base64.strict_encode64(keypair.sign(OpenSSL::Digest::SHA256.new, signed_string))
 header        = "keyId=\"#{actor_url}\",headers=\"(request-target) host date digest\",signature=\"#{signature}\""
