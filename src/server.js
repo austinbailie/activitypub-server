@@ -103,6 +103,8 @@ app.post('/inbox', (req, res) => {
     res.setHeader('Date', signedRequest.date);
     res.setHeader('Digest', signedRequest.digest);
 
+    console.log('INBOX RESP', respBody);
+
     res.status(200).json(respBody);
 });
 
