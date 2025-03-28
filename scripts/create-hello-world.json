@@ -8,7 +8,7 @@
 	"object": {
 		"id": "https://activitypub-server-1040968594711.us-central1.run.app/create-hello-world",
 		"type": "Note",
-		"published": "2025-03-26T03:50:41.178Z",
+		"published": "2025-03-26T00:50:41.178Z",
 		"attributedTo": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter",
 		"content": "<p>Hello world from ActivityPub server</p>",
 		"to": "https://www.w3.org/ns/activitystreams#Public"

@@ -9,9 +9,6 @@
 	"preferredUsername": "earlyadopter",
 	"inbox": "https://activitypub-server-1040968594711.us-central1.run.app/inbox",
 	"outbox": "https://activitypub-server-1040968594711.us-central1.run.app/outbox",
-	"manuallyApprovesFollowers": false,
-	"discoverable": true,
-	"summary": "Learning ActivityPub",
 
 	"publicKey": {
 		"id": "https://activitypub-server-1040968594711.us-central1.run.app/actors/earlyadopter#main-key",
