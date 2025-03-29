@@ -25,6 +25,7 @@ document = File.read('./create-hello-world.json')
 # }
 inbox_url = 'https://mastodon.social/inbox'
 actor_url = 'https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter'
+outbox_url = 'https://activitypub-server-kiclietloq-uc.a.run.app/create-post'
 
 logger.debug("HTTP POST Request to #{inbox_url}")
 logger.debug("Document being sent: #{document}")
@@ -41,6 +42,7 @@ logger.debug("Date: #{date}")
 logger.debug("Digest: #{digest}")
 logger.debug("Signature header: #{header}")
 
+logger.debug("Sent to MASTODON")
 # Add User-Agent header which some servers require
 response = HTTP.headers({ 
   'Host': 'mastodon.social', 
@@ -58,3 +60,15 @@ response = HTTP.headers({
 logger.debug("Response status: #{response.status}")
 logger.debug("Response headers: #{response.headers}")
 logger.debug("Response body: #{response.body}")
+
+logger.debug("Sent to OUTBOX")
+response = HTTP.headers({ 
+  'Content-Type': 'application/activity+json',
+  'User-Agent': 'ActivityPub Client/1.0',
+  'Accept': 'application/activity+json',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Connection': 'keep-alive'
+})
+.post(outbox_url, body: document)
+
+logger.debug("Response status: #{response.status}")
