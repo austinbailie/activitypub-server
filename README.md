@@ -56,3 +56,15 @@ docker run -p 3000:3000 activitypub-server
 ## License
 
 MIT 
+
+
+
+DOCUMENTS
+
+https://maho.dev/2024/02/a-guide-to-implement-activitypub-in-a-static-site-or-any-website/
+
+Verify your webfinger and actor
+https://verify.funfedi.dev/?actor_uri=https%3A%2F%2Factivitypub-server-1040968594711.us-central1.run.app%2Factors%2Fearlyadopter
+
+Activity pub threads
+https://socialhub.activitypub.rocks/t/issue-with-mastodon-pulling-posts-followers-from-new-activitypub-integration/4475/3

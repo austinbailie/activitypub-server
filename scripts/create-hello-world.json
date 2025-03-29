@@ -1,17 +1,16 @@
 {
 	"@context": "https://www.w3.org/ns/activitystreams",
 
-	"id": "https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world",
+	"id": "https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world4666",
 	"type": "Create",
 	"actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
 
 	"object": {
-		"id": "https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world",
+		"id": "https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world4666",
 		"type": "Note",
 		"published": "2025-03-26T00:50:41.178Z",
 		"attributedTo": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
-		"content": "<p>Hello world from ActivityPub server</p>",
-		"to": "https://www.w3.org/ns/activitystreams#Public",
-		"inReplyTo": "https://mastodon.social/@earlyadopter/114050143567043470"
+		"content": "<p>Hello world from ActivityPub server AGAIN</p>",
+		"to": "https://www.w3.org/ns/activitystreams#Public"
 	}
 }

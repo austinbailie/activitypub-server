@@ -9,6 +9,9 @@ const fs2 = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// In-memory storage for posts
+let posts = [];
+
 // Middleware
 app.use(helmet());
 app.use(cors());
@@ -117,14 +120,43 @@ app.post('/outbox', (req, res) => {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
 
+    // Return all posts in the outbox
     res.setHeader('Content-Type', 'application/activity+json');
     res.status(200).json({
         '@context': 'https://www.w3.org/ns/activitystreams',
         'summary': 'Outbox for earlyadopter',
         'type': 'OrderedCollection', 
-        'totalItems': 0,
-        'orderedItems': ['https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world'],
+        'totalItems': posts.length,
+        'orderedItems': posts
     });
+});
+
+// Add a new endpoint to create posts
+app.post('/create-post', (req, res) => {
+    const { content } = req.body;
+    const postId = `https://activitypub-server-kiclietloq-uc.a.run.app/posts/${Date.now()}`;
+    
+    const post = {
+        "@context": "https://www.w3.org/ns/activitystreams",
+        "id": postId,
+        "type": "Create",
+        "actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+        "object": {
+            "id": postId,
+            "type": "Note",
+            "published": new Date().toISOString(),
+            "attributedTo": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+            "content": content,
+            "to": "https://www.w3.org/ns/activitystreams#Public"
+        }
+    };
+
+    // Add the post to our storage
+    posts.unshift(post);
+
+    // Return the created post
+    res.setHeader('Content-Type', 'application/activity+json');
+    res.status(201).json(post);
 });
 
 // Health check endpoint
