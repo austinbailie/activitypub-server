@@ -138,7 +138,7 @@ app.post('/inbox', async (req, res) => {
     }
 });
 
-app.post('/outbox', (req, res) => {
+app.get('/outbox', (req, res) => {
     const signatureHeader = req.headers['signature'];
     const dateHeader = req.headers['date'];
     const digestHeader = req.headers['digest'];
@@ -159,7 +159,7 @@ app.post('/outbox', (req, res) => {
 });
 
 // Add a new endpoint to create posts
-app.post('/create-post', (req, res) => {
+app.post('/create-post', async (req, res) => {
     const { content } = req.body;
     const postId = `https://activitypub-server-644161555271.us-west1.run.app/posts/${Date.now()}`;
     
@@ -179,7 +179,11 @@ app.post('/create-post', (req, res) => {
     };
 
     // Add the post to our storage
-    posts.unshift(post);
+    const docRef = db.collection('posts').doc();
+
+    await docRef.set({
+        ...post
+    });
 
     // Return the created post
     res.setHeader('Content-Type', 'application/activity+json');
@@ -243,7 +247,7 @@ app.get('/following', (req, res) => {
             "type": "OrderedCollectionPage",
             "totalItems": 0,
             "orderedItems": [
-                
+
             ]
           }
     );

@@ -20,7 +20,6 @@ document = {
 		"attributedTo": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
 		"content": "<p>Hello world from ActivityPub server SPECIAL</p>",
 		"to": "https://www.w3.org/ns/activitystreams#Public",
-    "inReplyTo": "https://mastodon.social/@earlyadopter/114101570562968262"
 	}
 }.to_json
 
@@ -62,14 +61,14 @@ logger.debug("Response status: #{response.status}")
 logger.debug("Response headers: #{response.headers}")
 logger.debug("Response body: #{response.body}")
 
-# logger.debug("Sent to OUTBOX")
-# response = HTTP.headers({ 
-#   'Content-Type': 'application/activity+json',
-#   'User-Agent': 'ActivityPub Client/1.0',
-#   'Accept': 'application/activity+json',
-#   'Accept-Encoding': 'gzip, deflate, br',
-#   'Connection': 'keep-alive'
-# })
-# .post(outbox_url, body: document)
+logger.debug("Sent to OUTBOX")
+response = HTTP.headers({ 
+  'Content-Type': 'application/activity+json',
+  'User-Agent': 'ActivityPub Client/1.0',
+  'Accept': 'application/activity+json',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Connection': 'keep-alive'
+})
+.post(outbox_url, body: document)
 
-#logger.debug("Response status: #{response.status}")
+logger.debug("Response status: #{response.status}")
