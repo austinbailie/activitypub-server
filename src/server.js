@@ -160,6 +160,7 @@ app.get('/outbox', (req, res) => {
 
 // Add a new endpoint to create posts
 app.post('/create-post', async (req, res) => {
+    console.log(req.body)
     const { content } = req.body.object;
     const postId = `https://activitypub-server-644161555271.us-west1.run.app/posts/${Date.now()}`;
     
