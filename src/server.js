@@ -119,9 +119,9 @@ app.post('/inbox', async (req, res) => {
         console.log('INBOX RESP', respBody);
 
         const handle = body.object;
-        const username = handle.substring(handle.lastIndexOf('@') + 1); // Returns "blog"
+        const username = handle.substring(handle.lastIndexOf('@') + 1);
 
-        const docRef = db.collection('followers').doc(handle);
+        const docRef = db.collection('followers').doc(username);
 
         await docRef.set({
             profileURL: handle
