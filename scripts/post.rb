@@ -61,14 +61,12 @@ logger.debug("Response status: #{response.status}")
 logger.debug("Response headers: #{response.headers}")
 logger.debug("Response body: #{response.body}")
 
+logger.debug("Document being sent2: #{document}")
 logger.debug("Sent to OUTBOX")
 response = HTTP.headers({ 
-  'Content-Type': 'application/activity+json',
-  'User-Agent': 'ActivityPub Client/1.0',
-  'Accept': 'application/activity+json',
-  'Accept-Encoding': 'gzip, deflate, br',
-  'Connection': 'keep-alive'
+  'Content-Type': 'application/json',
 })
 .post(outbox_url, body: document)
 
 logger.debug("Response status: #{response.status}")
+logger.debug("Response body: #{response.body}")

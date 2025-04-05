@@ -138,7 +138,7 @@ app.post('/inbox', async (req, res) => {
     }
 });
 
-app.get('/outbox', (req, res) => {
+app.get('/outbox', async (req, res) => {
     const signatureHeader = req.headers['signature'];
     const dateHeader = req.headers['date'];
     const digestHeader = req.headers['digest'];
@@ -146,6 +146,13 @@ app.get('/outbox', (req, res) => {
     if (!signatureHeader || !dateHeader || !digestHeader) {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
+
+    const snapshot = await db.collection('posts').get();
+
+    let posts = []
+    snapshot.forEach((doc) => {
+        posts.push(doc.data())
+    });
 
     // Return all posts in the outbox
     res.setHeader('Content-Type', 'application/activity+json');
@@ -205,7 +212,6 @@ app.get('/followers', async (req, res) => {
 
     let profiles = []
     snapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data());
         profiles.push(doc.data().profileURL)
     });
 
