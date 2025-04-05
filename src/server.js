@@ -100,15 +100,15 @@ app.post('/inbox', async (req, res) => {
 
         const respBody = {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": `https://activitypub-server-kiclietloq-uc.a.run.app/${Date.now()}`,
+            "id": `https://activitypub-server-644161555271.us-west1.run.app/${Date.now()}`,
             "type": "Accept",
-            "actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+            "actor": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
             "object": {
                 ...body
             }
         }
 
-        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter');
+        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter');
         res.setHeader('Content-Type', 'application/activity+json');
         res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
         res.setHeader('Accept', 'application/activity+json');
@@ -166,18 +166,18 @@ app.post('/outbox', (req, res) => {
 // Add a new endpoint to create posts
 app.post('/create-post', (req, res) => {
     const { content } = req.body;
-    const postId = `https://activitypub-server-kiclietloq-uc.a.run.app/posts/${Date.now()}`;
+    const postId = `https://activitypub-server-644161555271.us-west1.run.app/posts/${Date.now()}`;
     
     const post = {
         "@context": "https://www.w3.org/ns/activitystreams",
         "id": postId,
         "type": "Create",
-        "actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+        "actor": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
         "object": {
             "id": postId,
             "type": "Note",
             "published": new Date().toISOString(),
-            "attributedTo": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+            "attributedTo": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
             "content": content,
             "to": "https://www.w3.org/ns/activitystreams#Public"
         }
@@ -221,7 +221,7 @@ app.get('/followers', (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-server-kiclietloq-uc.a.run.app/followers",
+            "id": "https://activitypub-server-644161555271.us-west1.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": 1,
             "orderedItems": [
@@ -238,7 +238,7 @@ app.get('/following', (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-server-kiclietloq-uc.a.run.app/followers",
+            "id": "https://activitypub-server-644161555271.us-west1.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": 1,
             "orderedItems": [

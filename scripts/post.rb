@@ -10,14 +10,14 @@ logger.level = Logger::DEBUG
 
 document = {
 	"@context": "https://www.w3.org/ns/activitystreams",
-	"id": "https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world-#{Time.now.utc.iso8601}",
+	"id": "https://activitypub-server-644161555271.us-west1.run.app/create-hello-world-#{Time.now.utc.iso8601}",
 	"type": "Create",
-	"actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+	"actor": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
 	"object": {
-		"id": "https://activitypub-server-kiclietloq-uc.a.run.app/create-hello-world",
+		"id": "https://activitypub-server-644161555271.us-west1.run.app/create-hello-world",
 		"type": "Note",
 		"published": "#{Time.now.utc.iso8601}",
-		"attributedTo": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+		"attributedTo": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
 		"content": "<p>Hello world from ActivityPub server SPECIAL</p>",
 		"to": "https://www.w3.org/ns/activitystreams#Public",
     "inReplyTo": "https://mastodon.social/@earlyadopter/1234567890"
@@ -25,8 +25,8 @@ document = {
 }.to_json
 
 inbox_url = 'https://mastodon.social/inbox'
-actor_url = 'https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter'
-outbox_url = 'https://activitypub-server-kiclietloq-uc.a.run.app/create-post'
+actor_url = 'https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter'
+outbox_url = 'https://activitypub-server-644161555271.us-west1.run.app/create-post'
 
 logger.debug("HTTP POST Request to #{inbox_url}")
 logger.debug("Document being sent: #{document}")
