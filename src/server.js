@@ -127,11 +127,6 @@ app.post('/inbox', async (req, res) => {
             profileURL: handle
         });
 
-        const snapshot = await db.collection('followers').get();
-        snapshot.forEach((doc) => {
-            console.log(doc.id, '=>', doc.data());
-        });
-
         res.status(200).json(respBody); 
 
     } else {
@@ -215,7 +210,15 @@ app.get('/create-hello-world', async (req, res) => {
 
 
 
-app.get('/followers', (req, res) => {
+app.get('/followers', async (req, res) => {
+
+    const snapshot = await db.collection('followers').get();
+
+    let profiles = []
+    snapshot.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data());
+        profiles.push(doc.data().profileURL)
+    });
 
     res.setHeader('Content-Type', 'application/activity+json');
     res.status(200).json(
@@ -223,10 +226,8 @@ app.get('/followers', (req, res) => {
             "@context": "https://www.w3.org/ns/activitystreams",
             "id": "https://activitypub-server-644161555271.us-west1.run.app/followers",
             "type": "OrderedCollectionPage",
-            "totalItems": 1,
-            "orderedItems": [
-                "https://mastodon.social/@earlyadopter"
-            ]
+            "totalItems": profiles.length,
+            "orderedItems": profiles
           }
     );
 });
@@ -240,9 +241,9 @@ app.get('/following', (req, res) => {
             "@context": "https://www.w3.org/ns/activitystreams",
             "id": "https://activitypub-server-644161555271.us-west1.run.app/followers",
             "type": "OrderedCollectionPage",
-            "totalItems": 1,
+            "totalItems": 0,
             "orderedItems": [
-                "https://mastodon.social/@earlyadopter"
+                
             ]
           }
     );
