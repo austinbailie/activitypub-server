@@ -5,6 +5,14 @@ const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const fs2 = require('fs');
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+
+initializeApp({
+    credential: applicationDefault()
+});
+  
+const db = getFirestore();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -73,7 +81,7 @@ app.get('/.well-known/webfinger', async (req, res) => {
     }
 });
 // Inbox endpoint
-app.post('/inbox', (req, res) => {
+app.post('/inbox', async (req, res) => {
 
     console.log('INBOX BODY', req.body);
     console.log('INBOX HEADERS', req.headers);
@@ -86,29 +94,53 @@ app.post('/inbox', (req, res) => {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
 
-    const body = req.body
+    const body = req.body;
 
-    const respBody = {
-        "@context": "https://www.w3.org/ns/activitystreams",
-        "id": `https://activitypub-server-kiclietloq-uc.a.run.app/${Date.now()}`,
-        "type": "Accept",
-        "actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
-        "object": {
-            ...body
+    if (body.type == "Follow") {
+
+        const respBody = {
+            "@context": "https://www.w3.org/ns/activitystreams",
+            "id": `https://activitypub-server-kiclietloq-uc.a.run.app/${Date.now()}`,
+            "type": "Accept",
+            "actor": "https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter",
+            "object": {
+                ...body
+            }
         }
+
+        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter');
+        res.setHeader('Content-Type', 'application/activity+json');
+        res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
+        res.setHeader('Accept', 'application/activity+json');
+        res.setHeader('Signature', signedRequest.signature);
+        res.setHeader('Date', signedRequest.date);
+        res.setHeader('Digest', signedRequest.digest);
+
+        console.log('INBOX RESP', respBody);
+
+        const handle = body.object;
+        const username = handle.substring(handle.lastIndexOf('@') + 1); // Returns "blog"
+
+        const docRef = db.collection('followers').doc(handle);
+
+        await docRef.set({
+            profileURL: handle
+        });
+
+        const snapshot = await db.collection('followers').get();
+        snapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+        });
+
+        res.status(200).json(respBody); 
+
+    } else {
+
+        res.setHeader('Content-Type', 'application/activity+json');
+        res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
+        res.setHeader('Accept', 'application/activity+json');
+        res.status(200).json(); 
     }
-
-    const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-kiclietloq-uc.a.run.app/actors/earlyadopter');
-    res.setHeader('Content-Type', 'application/activity+json');
-    res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
-    res.setHeader('Accept', 'application/activity+json');
-    res.setHeader('Signature', signedRequest.signature);
-    res.setHeader('Date', signedRequest.date);
-    res.setHeader('Digest', signedRequest.digest);
-
-    console.log('INBOX RESP', respBody);
-
-    res.status(200).json(respBody);
 });
 
 app.post('/outbox', (req, res) => {
