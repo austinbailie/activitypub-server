@@ -4,18 +4,18 @@
 		"https://w3id.org/security/v1"
 	],
 
-	"id": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
+	"id": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/actors/earlyadopter",
 	"type": "Person",
 	"preferredUsername": "earlyadopter",
-	"inbox": "https://activitypub-server-644161555271.us-west1.run.app/inbox",
-	"outbox": "https://activitypub-server-644161555271.us-west1.run.app/outbox",
+	"inbox": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/inbox",
+	"outbox": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/outbox",
 
 	"publicKey": {
-		"id": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter#main-key",
-		"owner": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
+		"id": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/actors/earlyadopter#main-key",
+		"owner": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/actors/earlyadopter",
 		"publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxQpiB3fIVsWoBXJI1/tmXfuvPQQJIMUjhB+3XrLz3PAoCo6HVMa3MCaUxIboUQAYvWrVp7UfNkzYlkraaBHGGIqO1klHIi7iQiz2LqR/DArFKHxb837neVI/uG9Gf+Y6WSL3bQcxFkhk9KApsSEmVnF8yWFTzvc4moUOZ9BUJx8b5iekPUcQK7XxGPA4vjApIuujLTYMOa5RvrF/OVF3BN1M3KKjCW7c7MxDs3RCg/2YYmXw3/losB9DG5XDNRw0zPuHwpG5MukfdBEr5SYMT7/aSHe25mbmK62rnpMPZ0XRmDpCrNQQuKiTcy/5CV1+CM2cVNvlfESHwXf+FGp6cwIDAQAB\n-----END PUBLIC KEY-----"
 	},
 
-	"followers": "https://activitypub-server-644161555271.us-west1.run.app/followers",
-	"following": "https://activitypub-server-644161555271.us-west1.run.app/following"
+	"followers": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/followers",
+	"following": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/following"
 }
