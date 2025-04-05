@@ -160,25 +160,9 @@ app.get('/outbox', (req, res) => {
 
 // Add a new endpoint to create posts
 app.post('/create-post', async (req, res) => {
-    console.log(req.body)
-    const { content } = req.body.object;
-    const postId = `https://activitypub-server-644161555271.us-west1.run.app/posts/${Date.now()}`;
-    
-    const post = {
-        "@context": "https://www.w3.org/ns/activitystreams",
-        "id": postId,
-        "type": "Create",
-        "actor": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
-        "object": {
-            "id": postId,
-            "type": "Note",
-            "published": new Date().toISOString(),
-            "attributedTo": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
-            "content": content,
-            "to": "https://www.w3.org/ns/activitystreams#Public"
-        }
-    };
-
+    console.log(req.body);
+    const post = req.body;
+  
     // Add the post to our storage
     const docRef = db.collection('posts').doc();
 

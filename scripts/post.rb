@@ -10,11 +10,11 @@ logger.level = Logger::DEBUG
 
 document = {
 	"@context": "https://www.w3.org/ns/activitystreams",
-	"id": "https://activitypub-server-644161555271.us-west1.run.app/create-hello-world-#{Time.now.utc.iso8601}",
+	"id": "https://activitypub-server-644161555271.us-west1.run.app/posts-#{Time.now.utc.iso8601}",
 	"type": "Create",
 	"actor": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
 	"object": {
-		"id": "https://activitypub-server-644161555271.us-west1.run.app/create-hello-world",
+		"id": "https://activitypub-server-644161555271.us-west1.run.app/posts-#{Time.now.utc.iso8601}",
 		"type": "Note",
 		"published": "#{Time.now.utc.iso8601}",
 		"attributedTo": "https://activitypub-server-644161555271.us-west1.run.app/actors/earlyadopter",
