@@ -151,6 +151,7 @@ app.get('/outbox', async (req, res) => {
 
     let posts = []
     snapshot.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data());
         posts.push(doc.data())
     });
 
