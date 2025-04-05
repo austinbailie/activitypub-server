@@ -160,7 +160,7 @@ app.get('/outbox', (req, res) => {
 
 // Add a new endpoint to create posts
 app.post('/create-post', async (req, res) => {
-    console.log(req.body);
+    console.log('DOCUMENT', req.body);
     const post = req.body;
   
     // Add the post to our storage
