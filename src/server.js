@@ -120,6 +120,8 @@ app.post('/inbox', async (req, res) => {
 
     const body = req.rawBody;
 
+    console.log(body.type);
+
     if (body.type == "Follow") {
 
         const respBody = {
