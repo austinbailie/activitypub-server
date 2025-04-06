@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const fs2 = require('fs');
 const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+const bodyParser = require('body-parser');
 
 initializeApp({
     credential: applicationDefault()
@@ -17,13 +18,11 @@ const db = getFirestore();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// In-memory storage for posts
-let posts = [];
-
 // Middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
 
 function createSignedRequest(document, actorUrl) {
