@@ -24,15 +24,25 @@ app.use(cors());
 
 const bodyParser = require('body-parser');
 
-
-// Middleware to handle `application/activity+json`
+// Middleware to capture the raw body of the request
 app.use((req, res, next) => {
-  if (req.is('application/activity+json')) {
-    // If the content type is `application/activity+json`, use express.json() to parse
-    express.json()(req, res, next);
-  } else {
-    next();
-  }
+    req.rawBody = '';
+    req.setEncoding('utf8');
+    req.on('data', chunk => {
+        req.rawBody += chunk;
+    });
+    req.on('end', () => {
+        next();
+    });
+});
+
+// Custom middleware to handle `application/activity+json` and `application/json`
+app.use((req, res, next) => {
+    if (req.is('application/activity+json') || req.is('application/json')) {
+        express.json()(req, res, next); // Parse the JSON body for ActivityPub requests
+    } else {
+        next();
+    }
 });
 
 
@@ -96,7 +106,7 @@ app.get('/.well-known/webfinger', async (req, res) => {
 app.post('/inbox', async (req, res) => {
 
     //console.log('REQUEST', req)
-    console.log('INBOX BODY', req.body);
+    console.log('INBOX BODY', req.rawBody);
     console.log('INBOX HEADERS', req.headers);
 
     const signatureHeader = req.headers['signature'];
