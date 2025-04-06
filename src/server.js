@@ -100,15 +100,15 @@ app.post('/inbox', async (req, res) => {
 
         const respBody = {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": `https://activitypub-server-s2ur7rvzga-uw.a.run.app/${Date.now()}`,
+            "id": `https://activitypub-test-644161555271.us-central1.run.app/${Date.now()}`,
             "type": "Accept",
-            "actor": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/actors/earlyadopter",
+            "actor": "https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter",
             "object": {
                 ...body
             }
         }
 
-        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-server-s2ur7rvzga-uw.a.run.app/actors/earlyadopter');
+        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter');
         res.setHeader('Content-Type', 'application/activity+json');
         res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
         res.setHeader('Accept', 'application/activity+json');
@@ -173,7 +173,6 @@ app.post('/create-post', async (req, res) => {
     const postId = req.body.id.split('/').pop();
     console.log('POSTID', postId);
 
-  
     // Add the post to our storage
     const docRef = db.collection('posts').doc(postId);
 
@@ -209,7 +208,7 @@ app.get('/followers', async (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/followers",
+            "id": "https://activitypub-test-644161555271.us-central1.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": profiles.length,
             "orderedItems": profiles
@@ -224,7 +223,7 @@ app.get('/following', (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-server-s2ur7rvzga-uw.a.run.app/followers",
+            "id": "https://activitypub-test-644161555271.us-central1.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": 0,
             "orderedItems": [
@@ -237,7 +236,7 @@ app.get('/following', (req, res) => {
 // Endpoint to serve individual posts
 app.get('/posts/:id', async (req, res) => {
     try {
-        const postId = `https://activitypub-server-s2ur7rvzga-uw.a.run.app/posts/${req.params.id}`;
+        const postId = `https://activitypub-test-644161555271.us-central1.run.app/posts/${req.params.id}`;
         const snapshot = await db.collection('posts')
             .where('id', '==', postId)
             .get();
@@ -248,6 +247,8 @@ app.get('/posts/:id', async (req, res) => {
 
         const post = snapshot.docs[0].data();
         res.setHeader('Content-Type', 'application/activity+json');
+        res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
+        res.setHeader('Accept', 'application/activity+json');
         res.json(post);
     } catch (error) {
         console.error('Error fetching post:', error);
