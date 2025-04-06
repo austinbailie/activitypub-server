@@ -1,15 +1,15 @@
 {
 	"@context": "https://www.w3.org/ns/activitystreams",
 
-	"id": "https://activitypub-test-644161555271.us-central1.run.app/create-hello-world4666",
+	"id": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/create-hello-world4666",
 	"type": "Create",
-	"actor": "https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter",
+	"actor": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter",
 
 	"object": {
-		"id": "https://activitypub-test-644161555271.us-central1.run.app/create-hello-world4666",
+		"id": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/create-hello-world4666",
 		"type": "Note",
 		"published": "2025-03-26T00:50:41.178Z",
-		"attributedTo": "https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter",
+		"attributedTo": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter",
 		"content": "<p>Hello world from ActivityPub server AGAIN</p>",
 		"to": "https://www.w3.org/ns/activitystreams#Public"
 	}

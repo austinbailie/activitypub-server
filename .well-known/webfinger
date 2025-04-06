@@ -1,13 +1,13 @@
 {
-    "subject": "acct:earlyadopter@activitypub-test-644161555271.us-central1.run.app",
+    "subject": "acct:earlyadopter@activitypub-test-s2ur7rvzga-uc.a.run.app",
     "aliases": [
-        "https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter"
+        "https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter"
     ],
     "links": [
         {
             "rel": "self",
             "type": "application/activity+json",
-            "href": "https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter"
+            "href": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter"
         }
     ]
 } 

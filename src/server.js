@@ -84,7 +84,7 @@ app.get('/.well-known/webfinger', async (req, res) => {
 app.post('/inbox', async (req, res) => {
 
     console.log('INBOX BODY', req.body);
-    console.log('INBOX HEADERS', req.headers);
+    console.log('INBOX HEADERS', req.headers.toString());
 
     const signatureHeader = req.headers['signature'];
     const dateHeader = req.headers['date'];
@@ -100,15 +100,15 @@ app.post('/inbox', async (req, res) => {
 
         const respBody = {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": `https://activitypub-test-644161555271.us-central1.run.app/${Date.now()}`,
+            "id": `https://activitypub-test-s2ur7rvzga-uc.a.run.app/${Date.now()}`,
             "type": "Accept",
-            "actor": "https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter",
+            "actor": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter",
             "object": {
                 ...body
             }
         }
 
-        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-test-644161555271.us-central1.run.app/actors/earlyadopter');
+        const signedRequest = createSignedRequest(JSON.stringify(respBody), 'https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter');
         res.setHeader('Content-Type', 'application/activity+json');
         res.setHeader('User-Agent', 'ActivityPub-Server/1.0');
         res.setHeader('Accept', 'application/activity+json');
@@ -208,7 +208,7 @@ app.get('/followers', async (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-test-644161555271.us-central1.run.app/followers",
+            "id": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": profiles.length,
             "orderedItems": profiles
@@ -223,7 +223,7 @@ app.get('/following', (req, res) => {
     res.status(200).json(
         {
             "@context": "https://www.w3.org/ns/activitystreams",
-            "id": "https://activitypub-test-644161555271.us-central1.run.app/followers",
+            "id": "https://activitypub-test-s2ur7rvzga-uc.a.run.app/followers",
             "type": "OrderedCollectionPage",
             "totalItems": 0,
             "orderedItems": [
@@ -236,7 +236,7 @@ app.get('/following', (req, res) => {
 // Endpoint to serve individual posts
 app.get('/posts/:id', async (req, res) => {
     try {
-        const postId = `https://activitypub-test-644161555271.us-central1.run.app/posts/${req.params.id}`;
+        const postId = `https://activitypub-test-s2ur7rvzga-uc.a.run.app/posts/${req.params.id}`;
         const snapshot = await db.collection('posts')
             .where('id', '==', postId)
             .get();
