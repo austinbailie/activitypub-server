@@ -143,9 +143,9 @@ app.get('/outbox', async (req, res) => {
     const dateHeader = req.headers['date'];
     const digestHeader = req.headers['digest'];
 
-    if (!signatureHeader || !dateHeader || !digestHeader) {
+   /* if (!signatureHeader || !dateHeader || !digestHeader) {
         return res.status(403).json({ error: 'Missing required signature headers' });
-    }
+    }*/
 
     const snapshot = await db.collection('posts').get();
 
