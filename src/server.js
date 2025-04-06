@@ -83,7 +83,7 @@ app.get('/.well-known/webfinger', async (req, res) => {
 // Inbox endpoint
 app.post('/inbox', async (req, res) => {
 
-    console.log('REQUEST', req)
+    //console.log('REQUEST', req)
     console.log('INBOX BODY', req.body);
     console.log('INBOX HEADERS', req.headers);
 
