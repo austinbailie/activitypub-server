@@ -170,9 +170,12 @@ app.get('/outbox', async (req, res) => {
 app.post('/create-post', async (req, res) => {
     console.log('DOCUMENT', req.body);
     const post = req.body;
+    const postId = req.body.id.split('/').pop();
+    console.log('POSTID', postId);
+
   
     // Add the post to our storage
-    const docRef = db.collection('posts').doc();
+    const docRef = db.collection('posts').doc(postId);
 
     await docRef.set({
         ...post
@@ -191,20 +194,6 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`ActivityPub server running on port ${PORT}`);
 }); 
-
-
-
-app.get('/create-hello-world', async (req, res) => {
-    try {
-        const post = await fs.readFile(path.join(__dirname, '../scripts/create-hello-world.json'), 'utf8');
-        res.setHeader('Content-Type', 'application/activity+json');
-        res.send(post);
-    } catch (error) {
-        console.error('Error serving webfinger file:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
 
 
 app.get('/followers', async (req, res) => {
@@ -243,4 +232,25 @@ app.get('/following', (req, res) => {
             ]
           }
     );
+});
+
+// Endpoint to serve individual posts
+app.get('/posts/:id', async (req, res) => {
+    try {
+        const postId = `https://activitypub-server-s2ur7rvzga-uw.a.run.app/posts/${req.params.id}`;
+        const snapshot = await db.collection('posts')
+            .where('id', '==', postId)
+            .get();
+
+        if (snapshot.empty) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        const post = snapshot.docs[0].data();
+        res.setHeader('Content-Type', 'application/activity+json');
+        res.json(post);
+    } catch (error) {
+        console.error('Error fetching post:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
