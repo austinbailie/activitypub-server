@@ -106,7 +106,6 @@ app.get('/.well-known/webfinger', async (req, res) => {
 // Inbox endpoint
 app.post('/inbox', async (req, res) => {
 
-    //console.log('REQUEST', req)
     console.log('INBOX BODY', req.rawBody);
     console.log('INBOX HEADERS', req.headers);
 
@@ -166,14 +165,7 @@ app.post('/inbox', async (req, res) => {
 });
 
 app.get('/outbox', async (req, res) => {
-    const signatureHeader = req.headers['signature'];
-    const dateHeader = req.headers['date'];
-    const digestHeader = req.headers['digest'];
-
-   /* if (!signatureHeader || !dateHeader || !digestHeader) {
-        return res.status(403).json({ error: 'Missing required signature headers' });
-    }*/
-
+   
     const snapshot = await db.collection('posts').get();
 
     let posts = []
@@ -195,9 +187,11 @@ app.get('/outbox', async (req, res) => {
 
 // Add a new endpoint to create posts
 app.post('/create-post', async (req, res) => {
-    console.log('DOCUMENT', req.body);
-    const post = req.body;
-    const postId = req.body.id.split('/').pop();
+    const post = JSON.parse(req.body);
+
+    console.log('DOCUMENT', post);
+   
+    const postId = post.id.split('/').pop();
     console.log('POSTID', postId);
 
     // Add the post to our storage
