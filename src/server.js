@@ -25,7 +25,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 
 // Middleware to capture the raw body of the request
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     req.rawBody = '';
     req.setEncoding('utf8');
     req.on('data', chunk => {
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
     req.on('end', () => {
         next();
     });
-});
+});*/
 
 // Custom middleware to handle `application/activity+json` and `application/json`
 app.use((req, res, next) => {
@@ -191,7 +191,6 @@ app.post('/create-post', async (req, res) => {
     console.log('DOCUMENT RAW', req.rawBody);
     console.log('DOCUMENT', req.body);
     
-
 
     const post = JSON.parse(req.rawBody);
    
