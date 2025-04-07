@@ -187,9 +187,13 @@ app.get('/outbox', async (req, res) => {
 
 // Add a new endpoint to create posts
 app.post('/create-post', async (req, res) => {
-    const post = JSON.parse(req.rawBody);
 
-    console.log('DOCUMENT', post);
+    console.log('DOCUMENT RAW', req.rawBody);
+    console.log('DOCUMENT', req.body);
+    
+
+
+    const post = JSON.parse(req.rawBody);
    
     const postId = post.id.split('/').pop();
     console.log('POSTID', postId);
