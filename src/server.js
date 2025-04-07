@@ -107,7 +107,6 @@ app.get('/.well-known/webfinger', async (req, res) => {
 app.post('/inbox', async (req, res) => {
 
     console.log('INBOX RAW BODY', req.rawBody);
-    console.log('INBOX BODY', req.body);
     console.log('INBOX HEADERS', req.headers);
 
     const signatureHeader = req.headers['signature'];
@@ -190,8 +189,6 @@ app.get('/outbox', async (req, res) => {
 app.post('/create-post', async (req, res) => {
 
     console.log('DOCUMENT RAW', req.rawBody);
-    console.log('DOCUMENT', req.body);
-    
 
     const post = JSON.parse(req.rawBody);
    
