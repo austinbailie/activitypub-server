@@ -66,7 +66,7 @@ logger.debug("Response body: #{response.body}")
 logger.debug("Document being sent2: #{document}")
 logger.debug("Sent to OUTBOX")
 response = HTTP.headers({ 
-  'Content-Type': 'application/json',
+  'Content-Type': 'application/activity+json',
 })
 .post(outbox_url, body: document)
 

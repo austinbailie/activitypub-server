@@ -25,7 +25,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 
 // Middleware to capture the raw body of the request
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
     req.rawBody = '';
     req.setEncoding('utf8');
     req.on('data', chunk => {
@@ -34,7 +34,7 @@ const bodyParser = require('body-parser');
     req.on('end', () => {
         next();
     });
-});*/
+});
 
 // Custom middleware to handle `application/activity+json` and `application/json`
 app.use((req, res, next) => {
@@ -118,7 +118,7 @@ app.post('/inbox', async (req, res) => {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
 
-    const body = req.body;
+    const body = JSON.parse(req.rawBody);
 
     console.log('TYPE', body.type);
 
@@ -193,7 +193,7 @@ app.post('/create-post', async (req, res) => {
     console.log('DOCUMENT', req.body);
     
 
-    const post = JSON.parse(req.body);
+    const post = JSON.parse(req.rawBody);
    
     const postId = post.id.split('/').pop();
     console.log('POSTID', postId);
