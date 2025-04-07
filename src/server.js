@@ -107,7 +107,7 @@ app.get('/.well-known/webfinger', async (req, res) => {
 app.post('/inbox', async (req, res) => {
 
     console.log('INBOX RAW BODY', req.rawBody);
-    console.log('INBOX BODY', JSON.parse(req.body));
+    console.log('INBOX BODY', req.body);
     console.log('INBOX HEADERS', req.headers);
 
     const signatureHeader = req.headers['signature'];
@@ -118,7 +118,7 @@ app.post('/inbox', async (req, res) => {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
 
-    const body = JSON.parse(req.body);
+    const body = req.body;
 
     console.log('TYPE', body.type);
 
