@@ -118,9 +118,9 @@ app.post('/inbox', async (req, res) => {
         return res.status(403).json({ error: 'Missing required signature headers' });
     }
 
-    const body = req.rawBody;
+    const body = JSON.parse(req.rawBody);
 
-    console.log(body.type);
+    console.log('TYPE', body.type);
 
     if (body.type == "Follow") {
 
