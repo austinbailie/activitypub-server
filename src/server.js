@@ -202,6 +202,25 @@ app.post('/create-post', async (req, res) => {
         ...post
     });
 
+    // Broadcast to followers
+    const followersSnapshot = await db.collection('followers').get();
+    const followers = followersSnapshot.docs.map(doc => doc.data().profileURL);
+
+    for (const follower of followers) {
+        const inboxUrl = `${follower}/inbox`; // Adjust if necessary
+        const signedRequest = createSignedRequest(JSON.stringify(createActivity), 'https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter');
+        await fetch(inboxUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/activity+json',
+                'Signature': signedRequest.signature,
+                'Date': signedRequest.date,
+                'Digest': signedRequest.digest
+            },
+            body: JSON.stringify(createActivity)
+        });
+    }
+
     // Return the created post
     res.setHeader('Content-Type', 'application/activity+json');
     res.status(201).json(post);
