@@ -208,7 +208,7 @@ app.post('/create-post', async (req, res) => {
 
     for (const follower of followers) {
         const inboxUrl = `${follower}/inbox`; // Adjust if necessary
-        const signedRequest = createSignedRequest(JSON.stringify(createActivity), 'https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter');
+        const signedRequest = createSignedRequest(JSON.stringify(post), 'https://activitypub-test-s2ur7rvzga-uc.a.run.app/actors/earlyadopter');
         await fetch(inboxUrl, {
             method: 'POST',
             headers: {
@@ -217,7 +217,7 @@ app.post('/create-post', async (req, res) => {
                 'Date': signedRequest.date,
                 'Digest': signedRequest.digest
             },
-            body: JSON.stringify(createActivity)
+            body: JSON.stringify(post)
         });
     }
 
